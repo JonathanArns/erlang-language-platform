@@ -1,0 +1,24 @@
+---
+sidebar_position: 14
+---
+
+import { FbInternalOnly } from 'docusaurus-plugin-internaldocs-fb/internal';
+import MetaOnlyW0014 from '../../../fb/components/_W0014.md';
+
+# W0014 - Cross Node Evaluation Not Allowed
+
+## Error
+
+```erlang
+  do(Node) ->
+    erlang:spawn_link(Node, fun() -> ok end).
+%%  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ error: Production code must not use cross node eval (e.g. `rpc:call()`)
+```
+
+## Explanation
+
+The error is indicating that remote execution is happening between two nodes, in an environment where this is not allowed.
+
+To fix the error either remove the invocation or ignore the problem via [the standard `elp:ignore` mechanism](../erlang-error-index.mdx#ignoring-diagnostics).
+
+<FBInternalOnly><MetaOnlyW0014 /></FBInternalOnly>
