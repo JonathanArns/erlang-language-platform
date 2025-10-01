@@ -1,3 +1,29 @@
+# Building statically linked ELP
+
+You can build a statically linked ELP using the [cross](https://github.com/cross-rs/cross) tool
+and a little bit of setup.
+Rust comes with pretty good cross compilation features out of the box, but 
+it can still require a lot of setup, since building against e.g. musl instead of libc, requires
+a copy of musl available on your system etc.
+Cross makes that as simple as possible by providing a docker image with all of those dependencies
+for pretty much every build target.
+
+If that was all we needed, we would be done now, but ELP has some other build dependencies, like an OTP,
+so we need to make those available in cross's container at build time.
+For that we have a [dockerfile](./cross.Dockerfile) and a cross config [file](./Cross.toml) pointing at that
+config file.
+
+Since we also need a built eqwalizer available, our dockerfile assumes that that is in its build context
+and just copies it from there.
+
+With all those prerequisites in place we can run
+```
+cross build --target x86_64-unknown-linux-musl
+```
+to build a statically linked elp for linux.
+This binary will of course still need a JVM to run eqwalizer, but it will not depend on glibc, instead
+linking statically against musl.
+
 # Erlang Language Platform (ELP)
 
 <picture>
