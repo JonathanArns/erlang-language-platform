@@ -11,7 +11,7 @@ for pretty much every build target.
 If that was all we needed, we would be done now, but ELP has some other build dependencies, like an OTP,
 so we need to make those available in cross's container at build time.
 For that we have a [dockerfile](./cross.Dockerfile) and a cross config [file](./Cross.toml) pointing at that
-config file.
+dockerfile.
 
 Since we also need a built eqwalizer available, our dockerfile assumes that that is in its build context
 and just copies it from there.
